@@ -87,43 +87,7 @@
 				Special Characters ("&")
 			</label>
 
-			<p class="has-text-weight-bold">Seperators:</p>
-
-			<label class="checkbox" for="underscore-checkbox">
-				<input checked id="underscore-checkbox" type="checkbox" />
-				Underscores ("_")
-			</label>
-
-			<label class="checkbox" for="dash-checkbox">
-				<input checked id="dash-checkbox" type="checkbox" />
-				Dashes ("-")
-			</label>
-
 			<br />
-
-			<label class="has-text-weight-bold" for="min-word-len"
-				>Minimum Word Length ("hello" is 5 characters)</label
-			>
-			<input
-				id="min-word-len"
-				class="input"
-				type="number"
-				min="0"
-				max="100"
-				value="4"
-			/>
-
-			<label class="has-text-weight-bold" for="max-word-len"
-				>Maximum Word Length ("hello" is 5 characters)</label
-			>
-			<input
-				id="max-word-len"
-				class="input"
-				type="number"
-				min="0"
-				max="100"
-				value="12"
-			/>
 
 			<label class="has-text-weight-bold" for="number-size"
 				>Number Size: ("765" is 3 digits)</label
@@ -146,6 +110,17 @@
 				type="text"
 				value="!&quot;#$%&'()*+,-./:;<=>?@[\]^_\`{|}~"
 			/>
+			<!-- https://owasp.org/www-community/password-special-characters -->
+
+			<label class="has-text-weight-bold" for="separators"
+				>Separators:</label
+			>
+			<input id="separators" class="input" type="text" value="-_" />
+
+			<p>
+				Tips: Leave separators blank for no separators. Enter more of
+				same special character to make it more likely.
+			</p>
 		</details>
 
 		<hr />

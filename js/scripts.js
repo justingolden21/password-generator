@@ -7,6 +7,8 @@ autofocus/select on page load
 url params for settings?
 upload json file for settings?
 
+reset settings btn?
+
 more:
 pin generator
 truly random (no words) pass generator
@@ -16,16 +18,13 @@ https://1password.com/password-generator/
 
 // pass item generation
 
-// https://owasp.org/www-community/password-special-characters
-const specials = ` !"#$%&'()*+,-./:;<=>?@[\]^_\`{|}~`.split('');
-// const specials = ['"']; // for testing quote
+const getRandomItem = (items) =>
+	items[Math.floor(Math.random() * items.length)];
 
-const getRandomWord = () => words[Math.floor(Math.random() * words.length)];
-const getRandomSpecial = () =>
-	specials[Math.floor(Math.random() * specials.length)];
+const getRandomWord = () => getRandomItem(words);
 
 // https://stackoverflow.com/a/59945762/4907950
-const toggleCase = (str) =>
+const togglecase = (str) =>
 	str
 		.toUpperCase()
 		.split(' ')
@@ -33,7 +32,7 @@ const toggleCase = (str) =>
 		.join(' ');
 const caps = (str) => str.toUpperCase();
 const lower = (str) => str.toLowerCase();
-const capitalize = (str) =>
+const capitalized = (str) =>
 	str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
 const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -60,19 +59,36 @@ function verify(num, min, max, defaultVal) {
 // pass generation
 
 function getRandomPass(settings) {
+	let specials =
+		settings.specials.split('') ||
+		` !"#$%&'()*+,-./:;<=>?@[\]^_\`{|}~`.split('');
+	let separators = settings.separators.split('') || `-_`.split('');
+
 	let pass = '';
 	for (let i = 0; i < settings.size; i++) {
-		let rng = Math.random();
-		if (rng > 0.8) pass += caps(getRandomWord());
-		else if (rng > 0.6) pass += lower(getRandomWord());
-		else if (rng > 0.4) pass += capitalize(getRandomWord());
-		else if (rng > 0.2) pass += toggleCase(getRandomWord());
-		else if (rng > 0.1) pass += randInt(100, 999).toString();
-		else pass += getRandomSpecial();
+		let items = [];
+		if (settings.generatedItems.caps) items.push(caps(getRandomWord()));
+		if (settings.generatedItems.lower) items.push(lower(getRandomWord()));
+		if (settings.generatedItems.capitalized)
+			items.push(capitalized(getRandomWord()));
+		if (settings.generatedItems.togglecase)
+			items.push(togglecase(getRandomWord()));
+		if (settings.generatedItems.number)
+			items.push(
+				randInt(
+					Math.pow(10, settings.numberSize),
+					Math.pow(10, settings.numberSize + 1) - 1
+				).toString()
+			);
+		if (settings.generatedItems.special)
+			items.push(getRandomItem(specials));
 
-		// if a word was generated and not the last loop
-		if (rng > 0.2 && i != settings.size - 1)
-			pass += Math.random() > 0.5 ? '_' : '-';
+		const item = getRandomItem(items);
+		pass += item;
+
+		// if not the last iteration of the loop and the item isn't a word (doesn't contain a letter)
+		if (i != settings.size - 1 && /[a-z]/i.test(item))
+			pass += getRandomItem(separators);
 	}
 	return pass;
 }
@@ -90,25 +106,22 @@ window.onload = () => {
 				number: u('#number-checkbox').is(':checked'),
 				special: u('#special-checkbox').is(':checked'),
 			},
-			seperators: {
-				underscore: u('#underscore-checkbox').is(':checked'),
-				dash: u('#dash-checkbox').is(':checked'),
-			},
-			minWordLen: getVal('min-word-len'),
-			maxWordLen: getVal('max-word-len'),
 			numberSize: getVal('number-size'),
-			specialChars: u('#special-chars').val(),
+			specials: u('#special-chars').val(),
+			separators: u('#separators').val(),
 		};
 
+		let html = '';
 		for (let i = 0; i < numPasswords; i++) {
 			console.log(settings);
 			const pass = getRandomPass(settings);
-			let html = `<input id="output" class="input my-2" type="text" value="${pass.replace(
+			html += `<input id="output" class="input my-2" type="text" value="${pass.replace(
 				/\"/g,
 				'&quot;'
-			)}"></input>`; // replace quote with &quot;
-			u('#output').html(html);
+			)}" spellcheck="false"></input>`; // replace quote with &quot;
 		}
+		u('#output').html(html);
 	});
 	u('#gen-btn').trigger('click');
+	u('#output input').first().select();
 };
