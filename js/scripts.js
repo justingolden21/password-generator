@@ -1,8 +1,7 @@
 /* todo
 
+maybe:
 quick copy buttons
-autofocus/select on generate
-autofocus/select on page load
 
 url params for settings?
 upload json file for settings?
@@ -121,7 +120,7 @@ window.onload = () => {
 			)}" spellcheck="false"></input>`; // replace quote with &quot;
 		}
 		u('#output').html(html);
+		u('#output input').first().select();
 	});
 	u('#gen-btn').trigger('click');
-	u('#output input').first().select();
 };
