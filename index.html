@@ -12,14 +12,21 @@
 		/>
 		<meta name="keywords" content="" />
 		<!-- <link rel="shortcut icon" href="img/icon.png"> -->
-		<!-- <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script> -->
-		<!-- <script src="https://raw.githubusercontent.com/justingolden21/umbrella/master/umbrella.min.js"></script> -->
 
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+		/>
 		<link rel="stylesheet" href="css/styles.css" />
+		<script src="js/lib/umbrella.min.js"></script>
 		<script src="js/words.js"></script>
 		<script src="js/scripts.js"></script>
 	</head>
-	<body>
-		<h1>Password Generator</h1>
+	<body class="section container">
+		<h1 class="title has-text-centered has-text-weight-light">
+			Password Generator
+		</h1>
+		<button id="gen-btn" class="button is-primary">Generate</button>
+		<input id="output" class="input my-4" type="text"></input>
 	</body>
 </html>
