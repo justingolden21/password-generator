@@ -1,16 +1,8 @@
 /* todo
 
-features/inputs/settings:
-min word length
-max word length
-separators (currently dash and underscore)
-number of items (currently 6)
-checkboxes for which options to inlcude (numbers, caps, lower, etc)
-chose list of special characters
-enter range of numbers
-
-generate multiple at a time
-generate on page load
+quick copy buttons
+autofocus/select on generate
+autofocus/select on page load
 
 more:
 pin generator
@@ -21,6 +13,7 @@ https://1password.com/password-generator/
 
 // https://owasp.org/www-community/password-special-characters
 const specials = ` !"#$%&'()*+,-./:;<=>?@[\]^_\`{|}~`.split('');
+// const specials = ['"']; // for testing quote
 
 const getRandomWord = () => words[Math.floor(Math.random() * words.length)];
 const getRandomSpecial = () =>
@@ -64,6 +57,12 @@ let settings = {
 
 window.onload = () => {
 	u('#gen-btn').on('click', () => {
-		u('#output').val(getRandomPass(settings));
+		const pass = getRandomPass(settings);
+		let html = `<input id="output" class="input my-2" type="text" value="${pass.replace(
+			/\"/g,
+			'&quot;'
+		)}"></input>`; // replace quote with &quot;
+		u('#output').html(html);
 	});
+	u('#gen-btn').trigger('click');
 };

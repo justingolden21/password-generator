@@ -26,7 +26,130 @@
 		<h1 class="title has-text-centered has-text-weight-light">
 			Password Generator
 		</h1>
-		<button id="gen-btn" class="button is-primary">Generate</button>
-		<input id="output" class="input my-4" type="text"></input>
+
+		<!-- <details open> -->
+		<details>
+			<summary class="subtitle">Settings</summary>
+
+			<label class="has-text-weight-bold" for="size"
+				>Number of Passwords:</label
+			>
+			<input
+				id="num-passwords"
+				class="input"
+				type="number"
+				min="1"
+				max="1000"
+				value="1"
+			/>
+
+			<label class="has-text-weight-bold" for="size"
+				>Number of Items:</label
+			>
+			<input
+				id="size"
+				class="input"
+				type="number"
+				min="2"
+				max="20"
+				value="5"
+			/>
+
+			<p class="has-text-weight-bold">Generated Items:</p>
+
+			<label class="checkbox" for="caps-checkbox">
+				<input checked id="caps-checkbox" type="checkbox" />
+				Capital Words ("HELLO")
+			</label>
+
+			<label class="checkbox" for="lower-checkbox">
+				<input checked id="lower-checkbox" type="checkbox" />
+				Lowercase Words ("hello")
+			</label>
+
+			<label class="checkbox" for="capitalized-checkbox">
+				<input checked id="capitalized-checkbox" type="checkbox" />
+				Capitalized Words ("Hello")
+			</label>
+
+			<label class="checkbox" for="togglecase-checkbox">
+				<input checked id="togglecase-checkbox" type="checkbox" />
+				Togglecase Words ("hELLO")
+			</label>
+
+			<label class="checkbox" for="number-checkbox">
+				<input checked id="number-checkbox" type="checkbox" />
+				Numbers ("765")
+			</label>
+
+			<label class="checkbox" for="special-checkbox">
+				<input checked id="special-checkbox" type="checkbox" />
+				Special Characters ("&")
+			</label>
+
+			<p class="has-text-weight-bold">Seperators:</p>
+
+			<label class="checkbox" for="underscore-checkbox">
+				<input checked id="underscore-checkbox" type="checkbox" />
+				Underscores ("_")
+			</label>
+
+			<label class="checkbox" for="dash-checkbox">
+				<input checked id="dash-checkbox" type="checkbox" />
+				Dashes ("-")
+			</label>
+
+			<br />
+
+			<label class="has-text-weight-bold" for="min-word-len"
+				>Minimum Word Length ("hello" is 5 characters)</label
+			>
+			<input
+				id="min-word-len"
+				class="input"
+				type="number"
+				min="0"
+				max="100"
+				value="4"
+			/>
+
+			<label class="has-text-weight-bold" for="max-word-len"
+				>Maximum Word Length ("hello" is 5 characters)</label
+			>
+			<input
+				id="max-word-len"
+				class="input"
+				type="number"
+				min="0"
+				max="100"
+				value="12"
+			/>
+
+			<label class="has-text-weight-bold" for="number-size"
+				>Number Size: ("765" is 3 digits)</label
+			>
+			<input
+				id="number-size"
+				class="input"
+				type="number"
+				min="1"
+				max="20"
+				value="3"
+			/>
+
+			<label class="has-text-weight-bold" for="special-characters"
+				>Special Characters:</label
+			>
+			<input
+				id="special-characters"
+				class="input"
+				type="text"
+				value="!&quot;#$%&'()*+,-./:;<=>?@[\]^_\`{|}~"
+			/>
+		</details>
+
+		<hr />
+		<button id="gen-btn" class="button is-primary my-2">Generate</button>
+		<div id="output"></div>
 	</body>
 </html>

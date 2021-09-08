@@ -10,8 +10,8 @@
 		sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
-body {
-	margin: 1rem;
+summary {
+	cursor: pointer;
 }
 
 @media (min-width: 640px) {
