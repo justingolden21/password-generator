@@ -1,3 +1,3 @@
-window.onload = ()=> {
-	console.log('page loaded');
+window.onload = () => {
+	console.log(words[1234]);
 };
