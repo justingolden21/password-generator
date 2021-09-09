@@ -120,7 +120,8 @@ window.onload = () => {
 			)}" spellcheck="false"></input>`; // replace quote with &quot;
 		}
 		u('#output').html(html);
-		u('#output input').first().select();
+		if (u('#select-checkbox').is(':checked'))
+			u('#output input').first().select();
 	});
 	u('#gen-btn').trigger('click');
 };
